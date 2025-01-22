@@ -5,11 +5,11 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class UserDto {
+public class OwnerDto {
     private String email;
     private String name;
     private String pwd;
-    private String userId;
+    private String ownerId; // UUID 기반
     private Date createdAt;
 
     private String encryptedPwd; // RequestUser pwd 기반

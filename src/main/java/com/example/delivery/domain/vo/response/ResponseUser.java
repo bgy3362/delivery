@@ -1,4 +1,4 @@
-package com.example.delivery.domain.vo;
+package com.example.delivery.domain.vo.response;
 
 import lombok.Data;
 
