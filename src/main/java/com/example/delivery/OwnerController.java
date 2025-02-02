@@ -3,12 +3,14 @@ package com.example.delivery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/owner")
 public class OwnerController {
     private final OwnerService ownerService;
+    private final RestService restService;
 
     @GetMapping("/me")
     public ResponseEntity<OwnerResponseDto> findOwnerInfoById() {

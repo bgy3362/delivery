@@ -21,4 +21,9 @@ public class OwnerService {
                 .map(OwnerResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
     }
+
+    public Owner findById(Long id) {
+        return ownerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
+    }
 }
