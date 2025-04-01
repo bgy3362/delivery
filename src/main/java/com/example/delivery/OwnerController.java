@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/owner")
 public class OwnerController {
     private final OwnerService ownerService;
-    private final RestService restService;
+    private final StoreService storeService;
 
     @GetMapping("/me")
     public ResponseEntity<OwnerResponseDto> findOwnerInfoById() {

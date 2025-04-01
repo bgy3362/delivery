@@ -26,6 +26,13 @@ public class JwtFilter extends OncePerRequestFilter {
     // JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        // 0. /auth /redis 예외
+        String path = request.getRequestURI();
+        if (path.startsWith("/auth") || path.startsWith("/redis")) {
+            log.info("path = {}", path);
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         // 1. Request Header 에서 토큰을 꺼냄
         String jwt = resolveToken(request);

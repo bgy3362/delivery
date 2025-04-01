@@ -30,7 +30,7 @@ public class Owner {
     private Authority authority;
 
     @OneToMany(mappedBy = "owner")
-    private List<Rest> restaurants = new ArrayList<>();
+    private List<Store> stores = new ArrayList<>();
 
     @Builder
     public Owner(String name, String email, String ownerId, String password, Authority authority) {

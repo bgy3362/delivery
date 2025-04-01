@@ -53,11 +53,11 @@ public class SecurityConfig {
     ///////////////////////////////////////////
 
     // h2 database 테스트가 원활하도록 관련 API 들은 전부 무시
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers("/h2-console/**", "/favicon.ico");
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring()
+//                .requestMatchers("/h2-console/**", "/favicon.ico");
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -72,7 +72,7 @@ public class SecurityConfig {
                 .sessionManagement((sessionMng) -> sessionMng.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((registry) ->
                         registry
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/auth/**", "/redis/**").permitAll()
                                 .requestMatchers("/api/member/**").hasRole("MEMBER") // ROLE_MEMBER만 접근 가능
                                 .requestMatchers("/api/owner/**").hasRole("OWNER") // ROLE_OWNER만 접근 가능
                                 .anyRequest().authenticated() // 그 외 요청은 인증 필요

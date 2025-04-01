@@ -7,8 +7,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RestRequestDto {
+public class StoreResponseDto {
     private String name;
     private String address;
     private String category;
+
+    public StoreResponseDto(Store store) {
+        this.name = store.getName();
+        this.address = store.getAddress();
+        this.category = store.getCategory().name();
+    }
 }

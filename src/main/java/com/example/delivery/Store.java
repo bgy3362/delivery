@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "rest")
+@Table(name = "store")
 @Entity
-public class Rest {
+public class Store {
     @Id
-    @Column(name = "rest_id")
+    @Column(name = "store_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -22,7 +22,7 @@ public class Rest {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    private RestCategory category;
+    private StoreCategory category;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
