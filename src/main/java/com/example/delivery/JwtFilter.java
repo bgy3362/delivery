@@ -28,7 +28,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         // 0. /auth /redis 예외
         String path = request.getRequestURI();
-        if (path.startsWith("/auth") || path.startsWith("/redis")) {
+        if (path.startsWith("/auth") || path.startsWith("/redis") || path.startsWith("/search")) {
             log.info("path = {}", path);
             filterChain.doFilter(request, response);
             return;

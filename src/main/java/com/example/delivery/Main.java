@@ -1,80 +1,60 @@
 import java.io.*;
 import java.util.*;
 
-
-public class Main {
-    static int N, K;
-    static int initState = 0;
-    static int[][] arr;
-    static int[] dp;
+class Main {
+    static int N, L;
+    static ArrayDeque<int[]> q = new ArrayDeque<>();
     static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
-        N = Integer.parseInt(br.readLine());
-        arr = new int[N][N];
-        dp = new int[1<<N];
-        Arrays.fill(dp, Integer.MAX_VALUE);
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        L = Integer.parseInt(st.nextToken());
+
+        st = new StringTokenizer(br.readLine());
         for(int i=0; i<N; i++) {
-            st = new StringTokenizer(br.readLine());
-            for(int j=0; j<N; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-        String s = br.readLine();
-        for(int i=0; i<s.length(); i++) {
-            if(s.charAt(i) == 'Y') {
-                initState = initState | (1 << i);
-            }
-        }
-        K = Integer.parseInt(br.readLine());
-        dp[initState] = 0;
-        int answer = Integer.MAX_VALUE;
+            int k = Integer.parseInt(st.nextToken());
 
-        for(int state=initState; state<(1<<N); state++) {
-            if(dp[state] == Integer.MAX_VALUE) continue;
-
-            if(Integer.bitCount(state) >= K) {
-                answer = Math.min(answer, dp[state]);
-                continue;
+            while(!q.isEmpty() && q.peek()[0] <= (i-L)) {
+                q.poll();
             }
 
-            for(int i=0; i<N; i++) {
-                if((state & (1 << i)) != 0) {
-                    for(int j=0; j<N; j++) {
-                        if(i == j) continue;
-
-                        int nextState = state | (1 << j);
-                        dp[nextState] = Math.min(dp[nextState], dp[state] + arr[i][j]);
-                    }
-                }
+            while(!q.isEmpty() && q.peekLast()[1] > k) {
+                q.pollLast();
             }
-        }
 
-        if(answer == Integer.MAX_VALUE) {
-            sb.append(-1);
-        } else {
-            sb.append(answer);
+            q.offer(new int[]{i, k});
+
+            sb.append(q.peek()[1]).append(" ");
         }
 
         bw.write(sb.toString());
-        bw.flush();
         bw.close();
         br.close();
     }
 }
 
 /*
-  000 001 010 011 100 101 110 111
-   M   0   M   3   M   5   M   7
+1 5 2 3 6 2 3 7 3 5 2 6
+(인덱스, 값)
+1. 인덱스 TTL 지난얘들 out
+2. 들어갈 때 큰얘들은 다 뺴도됌
+3. [0] 출력
 
-3
-0 10 11
-10 0 12
-12 13 0
-YNN
-1
+0[1] 1
+1[1 5] 1
+2[1 2] 1
+3[2 3] 2
+[2 3 6] 2
+[2] 2
+[2 3] 2
+[2 3 7] 2
+[3 3] 3
+[7 3 5] 3
+[3 5 2] 2
+[5 2 6] 2
 
 * */

@@ -20,6 +20,11 @@ public class Store {
 
     private String name;
     private String address;
+    private double latitude;
+    private double longitude;
+    private int table;
+    private int eating;
+    private int waiting;
 
     @Enumerated(EnumType.STRING)
     private StoreCategory category;

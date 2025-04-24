@@ -72,7 +72,7 @@ public class SecurityConfig {
                 .sessionManagement((sessionMng) -> sessionMng.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((registry) ->
                         registry
-                                .requestMatchers("/auth/**", "/redis/**").permitAll()
+                                .requestMatchers("/auth/**", "/redis/**", "/search/**").permitAll()
                                 .requestMatchers("/api/member/**").hasRole("MEMBER") // ROLE_MEMBER만 접근 가능
                                 .requestMatchers("/api/owner/**").hasRole("OWNER") // ROLE_OWNER만 접근 가능
                                 .anyRequest().authenticated() // 그 외 요청은 인증 필요
